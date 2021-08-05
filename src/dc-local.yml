@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  ecodices:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: ecodices_app
+    ports:
+      - 9001:80
