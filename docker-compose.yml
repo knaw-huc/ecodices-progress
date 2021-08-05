@@ -16,6 +16,8 @@ services:
       - VIRTUAL_HOST=ecodices.sd.di.huc.knaw.nl
     volumes:
       - /home/robz/:/home
+    ports:
+      - 8091:80
     networks:
       - ecodices_network
 
