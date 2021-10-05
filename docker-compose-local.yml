@@ -1,0 +1,47 @@
+version: '2'
+
+services:
+  ecodices:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: ecodices_app
+    ports:
+      - 8091:80
+    networks:
+      - ecodices_network
+
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.2
+    container_name: ecodices_es
+    environment:
+      - discovery.type=single-node
+    expose:
+      - 9200
+    ports:
+      - 9200:9200
+    volumes:
+      - /Users/robzeeman/Documents/DI_code/DATA/ecodices/current_index/data:/usr/share/elasticsearch/data
+    networks:
+      - ecodices_network
+
+  pyservice:
+    build:
+      context: ./
+      dockerfile: Dockerfile.service
+    container_name: ecodices_service
+    expose:
+      - 5000
+    ports:
+      - 5000:5000
+    networks:
+      - ecodices_network
+
+
+networks:
+  ecodices_network:
+    driver: bridge
+
+
+
+
